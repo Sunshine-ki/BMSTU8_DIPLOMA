@@ -1,0 +1,1 @@
+# BMSTU8_DIPLOMA
