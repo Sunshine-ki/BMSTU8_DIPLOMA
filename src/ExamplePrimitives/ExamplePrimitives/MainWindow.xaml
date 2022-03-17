@@ -1,0 +1,34 @@
+﻿<Window x:Class="ExamplePrimitives.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:ExamplePrimitives.Controls">
+
+    <Canvas Background="AliceBlue"
+            Height="768"  Width="1024"
+            MouseMove="OnMouseMoveCanvas"
+            MouseUp="OnMouseUpCanvas">
+
+            <!--<Rectangle x:Name = "background" 
+                        Fill = "AliceBlue" 
+                        MouseDown = "OnMouseDown" 
+                        Height = "450" 
+                        Width="800">
+            </Rectangle>-->
+
+            <controls:UserControl1 
+                x:Name = "mrRec2" 
+                Title="Select" 
+                Canvas.Left="{Binding L}"
+                Canvas.Top="{Binding R}"
+                MouseDown = "OnMouseDown" />
+
+            <controls:UserControl1 
+                x:Name = "mrRec1" 
+                Title="Select" 
+                L="350" 
+                Canvas.Left="{Binding L}" 
+                Canvas.Top="{Binding R}"
+                MouseDown = "OnMouseDown"/>
+
+    </Canvas>
+</Window>
