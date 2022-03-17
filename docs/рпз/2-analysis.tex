@@ -597,6 +597,101 @@ PostgreSQL для каждого нижележащего узла берет д
 пока что не будут получены данные из самого верхнего узла.
 Это и будет являться результатом sql-запроса.
 
+\section{Спецификация SQL запроса}
+
+В данном разделе будет рассмотрена спецификация SQL запроса стандарта 602SQL.
+Далее, описанные в данном разделе данные, потребуются для описания и реализации собственной грамматики.
+
+\subsection{Спецификация query\_specification}
+
+В основе SQL-select запроса лежит query\_specification.
+Спецификация запроса выбирает набор выходных записей из записей из обобщенных таблиц. %  TODO: или создает
+Если установлено предложение DISTINCT, будут выбраны только разные (уникальные) записи. %(только для столбцов фиксированной длины). 
+Если ключевое слово ALL установлено (или опущено), будут выбраны все подходящие записи.
+Если указано предложение WHERE, будут выбраны только те записи, которые удовлетворяют условию where\_condition.
+Если указано предложение GROUP BY, записи будут разделены на группы. 
+Каждая группа содержит записи с одинаковыми значениями выражения expression\_group.
+Если указано предложение HAVING, будут выбраны только те группы, которые удовлетворяют условию having\_condition.
+Если задано rename, то результирующая таблица будет переименована в name.
+Выражение SELECT также может использовать символ '*',.
+Если выражение имеет форму generalized\_table.*, все столбцы обобщенной таблицы будут в результате. 
+Далее будут подробно рассмотрены элементы запроса.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   query_specification ::= SELECT [ ALL | DISTINCT ] expression [ rename ] { , expression [ rename ] } 
+   FROM generalized table { , generalized table } 
+   [ WHERE where_condition ] 
+   [ GROUP BY expression_group { , expression_group } ]
+   [ HAVING having_condition ]
+   rename ::= AS name
+\end{lstlisting}
+
+\subsection{Спецификация expression}
+
+expression - это запись, состоящая из элементов, которую можно вычислить. 
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   expression ::= simple_expression { operator simple_expression } ...
+   simple_expression ::= literal          |
+                     column_name          |
+                     constants            |
+                     subquery             |
+                     CASE_expression      |
+   operator ::=  + | - | * | / | MOD | DIV | chaining
+\end{lstlisting}
+
+Текст в языке SQL состоит из лексических элементов следующих типов.
+\begin{enumerate}
+   \item Зарезервированных слов.
+   \item Идентификаторов - стандартные идентификаторы в языке SQL начинаются с буквы или подчеркивания ("\_") и могут содержать буквы, цифры и подчеркивания.
+   \item Разделителей.
+   \item Литералов.
+   \item Комментариев.
+\end{enumerate}
+
+Литералы используются для ввода фиксированного значения в текст оператора SQL. 
+Литералы бывают нескольких типов.
+
+\begin{enumerate}
+   \item number - представляет целое число, вещественное или полулогарифмическое.
+   \item character\_string - представляет последовательность символов. Строки символов заключаются в апострофы при использовании в SQL. 
+   Если строка символов содержит символ апострофа, его необходимо ввести дважды.
+   \item binary\_string. Двоичные строки вводятся в шестнадцатеричном формате или в виде порядка байтов, заключенных в апострофы:
+   % Символ X должен быть указан перед первым апострофом в шестнадцатеричной системе счисления, и каждый байт записывается как два шестнадцатеричных числа.
+   % Символ B должен быть указан перед первым апострофом в байтовой записи, и каждый байт записывается как восемь цифр 0 или 1.
+   \item date\_and\_time\_notation - обозначение времени и даты.  
+\end{enumerate}
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   literal ::= number | character_string | binary_string | date_and_time_notation
+\end{lstlisting}
+
+Имя столбца может быть (и должно быть, если может возникнуть дублирование столбцов) с префиксом имени таблицы или с псевдонимом таблицы.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   column_name ::= [table_name.]column_name
+\end{lstlisting}
+
+Подзапрос - вложенный запрос, содержащийся в предложении WHERE или HAVING другого оператора SQL.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   subquery ::= ( query_specification )
+\end{lstlisting}
+
+Выражение CASE служит для выбора значения одного из выражений на основе заданных условий. 
+Ищется первая ветвь WHEN (слева направо), где значение expression2 совпадает со значением expression1 в данном CASE. 
+Ищется первая ветвь WHEN (слева направо), где выполняется условие в условном CASE. 
+Если подходящая ветвь найдена, значение выражения CASE будет expression3 в этой ветви. 
+Если подходящая ветвь не найдена, значением выражения CASE будет expression4 или NULL, если expression4 не указано.
+Все выражения expression2 должны иметь тип, сравнимый с expression1. 
+Все выражения expression3 и expression4 должны быть преобразуемы в определенный общий тип.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
+   CASE_expression ::= simple_CASE | conditional_CASE
+   simple_CASE ::= CASE expression1 { WHEN expression2 THEN expression3 } [ ELSE expression4 ] END
+   conditional_CASE ::= CASE { WHEN condition THEN expression3 } [ ELSE expression4 ] END
+\end{lstlisting}
+
 \section{Грамматика}
 
 
