@@ -50,7 +50,43 @@ column_name
 	;
 
 literal
-	: NUMBER | CHARACTER_STRING
+	: number 
+	| character_string
+	| binary_string
+	| date_and_time_notation
+	;
+
+number
+	: int_number
+	| float_number
+	| exponential_number
+	;
+
+exponential_number
+	: EXP_NUMBER
+	;
+
+
+float_number
+	: FLOAT
+	;
+
+int_number
+	: INT
+	;
+
+
+character_string
+	: CHARACTER_STRING
+	;
+
+// TODO: binary_string and date_and_time_notation
+binary_string
+	:
+	;
+
+date_and_time_notation
+	:
 	;
 
 
@@ -88,10 +124,6 @@ fragment W          : ('W'|'w') ;
 fragment X          : ('X'|'x') ;
 fragment Y          : ('Y'|'y') ;
 fragment Z          : ('Z'|'z') ;
-
-fragment INT
-	: '0' | [1-9] [0-9]*
-	;
 
 // no leading zeros
 fragment EXP
@@ -177,8 +209,17 @@ END
 	;
 // end keywords
 
-NUMBER 
-	: ('-' | '+')? (INT '.' [0-9]+ EXP? | INT EXP | INT) 
+
+EXP_NUMBER
+	: (FLOAT | INT) EXP
+	;
+
+FLOAT
+	: INT '.' [0-9]+ 
+	;
+
+INT
+	: '0' | [1-9] [0-9]*
 	;
 
 NAME
