@@ -8,8 +8,33 @@ query_specification
 	;
 
 query_expression 
-	: equation
-	| column_name_expression 
+	: expression (AS rename)?
+	;
+
+rename
+	: NAME
+	;
+
+// TODO: В специфицации степени нет, убрать?
+expression
+	: expression POW expression
+	| expression (MULTIPLICATION | DIV) expression
+	| expression (PLUS | MINUS) expression
+	| LPAREN expression RPAREN
+	| expression compare expression
+	| simple_expression
+	;
+
+compare
+   : EQ
+   | NEQ
+   | GT
+   | LT
+   ;
+
+simple_expression
+	: literal
+	| column_name_expression
 	;
 
 column_name_expression 
@@ -24,36 +49,15 @@ column_name
 	: NAME
 	;
 
-equation
-   : expression (relop expression)*
-   ;
-
-expression
-	: expression POW expression
-	| expression (MULTIPLICATION | DIV) expression
-	| expression (PLUS | MINUS) expression
-	| LPAREN expression RPAREN
-	| simple_expression
-	;
-
-simple_expression
-	: literal
-	;
-
 literal
 	: NUMBER | CHARACTER_STRING
 	;
+
 
 distinct 
 	: ALL | DISTINCT
 	;
 
-relop
-   : EQ
-   | NQ
-   | GT
-   | LT
-   ;
 
 /*
  * Lexer Rules
@@ -95,12 +99,6 @@ fragment EXP
 	;
 
 // This is tokens
-
-// TODO: 
-//fragment SIGN
-//   : ('+' | '-')
-//   ;
-
 LPAREN
    : '('
    ;
@@ -148,7 +146,7 @@ EQ
    : '='
    ;
 
-NQ
+NEQ
 	: '!' '='
    ;
 
@@ -164,6 +162,9 @@ POINT
 ALL 
 	: A L L ;
 
+AS 
+	: A S ;
+
 DISTINCT 
 	: D I S T I N C T ;
 
@@ -176,16 +177,9 @@ END
 	;
 // end keywords
 
-// TODO: Is it working?
 NUMBER 
-	: ('-' | '+')? (INT '.' [0-9] + EXP? | INT EXP | INT) 
+	: ('-' | '+')? (INT '.' [0-9]+ EXP? | INT EXP | INT) 
 	;
-
-//NUMBER
-//	: '-'? INT '.' [0-9] + EXP? 
-//	| '-'? INT EXP 
-//	| '-'? INT
-//	;
 
 NAME
 	: [a-zA-Z] [a-zA-Z0-9_]* 
