@@ -50,21 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\InputValuesContext.cs" />
     <Compile Include="Context\MainContext.cs" />
+    <Compile Include="Context\SqlKeywordsContext.cs" />
+    <Compile Include="Context\СharactersContext.cs" />
     <Compile Include="Enums\Operator.cs" />
     <Compile Include="Enums\Sing.cs" />
-    <Compile Include="FormMathSample.cs">
+    <Compile Include="SqlSimple.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMathSample.Designer.cs">
-      <DependentUpon>FormMathSample.cs</DependentUpon>
+    <Compile Include="SqlSimple.Designer.cs">
+      <DependentUpon>SqlSimple.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormMathSample.resx">
-      <DependentUpon>FormMathSample.cs</DependentUpon>
+    <EmbeddedResource Include="SqlSimple.resx">
+      <DependentUpon>SqlSimple.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

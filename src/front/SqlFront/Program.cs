@@ -15,7 +15,7 @@ namespace MathSample
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMathSample());
+            Application.Run(new SqlSimple());
         }
     }
 }

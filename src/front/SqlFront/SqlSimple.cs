@@ -12,12 +12,12 @@ using NodeEditor;
 
 namespace MathSample
 {
-    public partial class FormMathSample : Form
+    public partial class SqlSimple : Form
     {
         //Context that will be used for our nodes
         MainContext context = new MainContext();
 
-        public FormMathSample()
+        public SqlSimple()
         {
             InitializeComponent();
             context.OnResult += SomeMethod;

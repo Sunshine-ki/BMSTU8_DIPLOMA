@@ -1,6 +1,6 @@
 ﻿namespace MathSample
 {
-    partial class FormMathSample
+    partial class SqlSimple
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(957, 510);
             this.Controls.Add(this.controlNodeEditor);
             this.Name = "FormMathSample";
-            this.Text = "NodeEditor WinForms - Math Sample";
+            this.Text = "NodeEditor WinForms - Sql sample";
             this.Load += new System.EventHandler(this.FormMathSample_Load);
             this.ResumeLayout(false);
 

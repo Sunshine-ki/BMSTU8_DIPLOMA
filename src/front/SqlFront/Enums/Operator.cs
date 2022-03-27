@@ -10,8 +10,8 @@ namespace MathSample.Enums
         [Description("-")]
         Subtraction = 1,
         [Description("*")]
-        multiplication = 2,
+        Multiplication = 2,
         [Description("/")]
-        division = 3
+        Division = 3
     }
 }
