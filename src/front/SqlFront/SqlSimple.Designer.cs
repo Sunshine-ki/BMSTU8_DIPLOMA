@@ -1,4 +1,4 @@
-﻿namespace MathSample
+﻿namespace SqlSimple
 {
     partial class SqlSimple
     {

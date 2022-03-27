@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace MathSample.Helpers
+namespace SqlSimple.Helpers
 {
     public static class EnumHelper
     {

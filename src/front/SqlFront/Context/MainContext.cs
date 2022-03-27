@@ -5,11 +5,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MathSample.Enums;
-using MathSample.Helpers;
+using SqlSimple.Enums;
+using SqlSimple.Helpers;
 using NodeEditor;
 
-namespace MathSample.Context
+namespace SqlSimple.Context
 {
     // Main context of the sample, each
     // method corresponds to a node by attribute decoration
@@ -26,13 +26,19 @@ namespace MathSample.Context
             _result.Clear();
         }
 
-        private void appendStringToResult(string str)
+        private void appendToResult(string str)
         {
             _result.Append(str);
             _result.Append(" ");
         }
 
-        [Node("End", "Keywords", "Basic", "Shows input value in the message box.", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        [Node("Starter", "Helpers", "Basic", "Starts execution", true, true, width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void Starter()
+        {
+            resetResult();
+        }
+
+        [Node("End", "Helpers", "Basic", "Shows input value in the message box.", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void End()
         {
             var value = _result.ToString();

@@ -7,10 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using MathSample.Context;
+using SqlSimple.Context;
 using NodeEditor;
 
-namespace MathSample
+namespace SqlSimple
 {
     public partial class SqlSimple : Form
     {

@@ -1,31 +1,31 @@
-﻿using MathSample.Helpers;
+﻿using SqlSimple.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MathSample.Context
+namespace SqlSimple.Context
 {
     public partial class MainContext : INodesContext
     {
         [Node("Separator", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Separator()
         {
-            appendStringToResult(",");
+            appendToResult(",");
         }
 
 
         [Node("Left bracket", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void LeftBracket()
         {
-            appendStringToResult("(");
+            appendToResult("(");
         }
 
         [Node("Right bracket", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void RightBracket()
         {
-            appendStringToResult(")");
+            appendToResult(")");
         }
     }
 }
