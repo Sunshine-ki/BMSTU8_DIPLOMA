@@ -15,5 +15,6 @@ namespace SqlSimple.Helpers
         public const string POINT = ".";
         public const string AS = "as";
         public const string POW = "^";
+        public const string ALL_DATA = "*";
     }
 }

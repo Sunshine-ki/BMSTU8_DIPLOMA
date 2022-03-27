@@ -8,10 +8,12 @@ query_specification
 	;
 
 
-// TODO: All column *
-
 query_expression 
-	: (expression | aggregate_function LPAREN expression RPAREN ) (AS rename)?
+	: (expression | aggregate_function LPAREN expression RPAREN | all_data) (AS rename)?
+	;
+
+all_data
+	: ALL_DATA
 	;
 
 aggregate_function
@@ -158,9 +160,13 @@ MINUS
    ;
 
 
+ALL_DATA
+	: '*'
+	;
+
 MULTIPLICATION
-   : '*'
-   ;
+	: '*'
+	;
 
 
 DIV

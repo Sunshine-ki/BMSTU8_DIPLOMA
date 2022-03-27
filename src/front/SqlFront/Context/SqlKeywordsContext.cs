@@ -22,5 +22,11 @@ namespace SqlSimple.Context
         {
             appendToResult(distinct.GetDescription());
         }
+
+        [Node("All data", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void AllData()
+        {
+            appendToResult(Constants.ALL_DATA);
+        }
     }
 }
