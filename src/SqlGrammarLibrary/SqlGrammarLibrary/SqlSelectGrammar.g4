@@ -15,13 +15,13 @@ rename
 	: NAME
 	;
 
-// TODO: В специфицации степени нет, убрать?
+// TODO: В специфицации степени нет, убрать? 
+//(и скобок (LPAREN, RPAREN) тоже, но по сути мат выражение мы делать можем....?)
 expression
 	: expression POW expression
 	| expression (MULTIPLICATION | DIV) expression
 	| expression (PLUS | MINUS) expression
 	| LPAREN expression RPAREN
-	| expression compare expression
 	| simple_expression
 	;
 

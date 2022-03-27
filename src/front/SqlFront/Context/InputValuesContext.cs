@@ -26,6 +26,7 @@ namespace SqlSimple.Context
             }
         }
 
+
         [Node("Rename", "Input", "Basic", "Input new name for column name")]
         public void Rename(string newName)
         {
@@ -46,6 +47,12 @@ namespace SqlSimple.Context
             appendToResult(Operator.GetDescription());
         }
 
+        [Node("Compare", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        public void Compare(Compare compare)
+        {
+            appendToResult(compare.GetDescription());
+        }
+        
 
         [Node("Number Int", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
         public void IntNumber(int number)
@@ -63,6 +70,14 @@ namespace SqlSimple.Context
         public void ExponentialNumber(string number)
         {
             appendToResult(number.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+        }
+
+        [Node("Number in a power", "Input", "Basic", "Input column name")]
+        public void NumberInPower(decimal number, decimal pow)
+        {
+            appendToResult(number.ToString(CultureInfo.InvariantCulture));
+            appendToResult("^");
+            appendToResult(pow.ToString(CultureInfo.InvariantCulture));
         }
     }
 }
