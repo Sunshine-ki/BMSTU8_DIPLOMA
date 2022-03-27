@@ -54,6 +54,7 @@
     <Compile Include="Context\MainContext.cs" />
     <Compile Include="Context\SqlKeywordsContext.cs" />
     <Compile Include="Context\СharactersContext.cs" />
+    <Compile Include="Enums\AggregateFunction.cs" />
     <Compile Include="Enums\Compare.cs" />
     <Compile Include="Enums\Distinct.cs" />
     <Compile Include="Enums\Operator.cs" />

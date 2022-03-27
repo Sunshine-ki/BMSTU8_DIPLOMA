@@ -12,17 +12,24 @@ namespace SqlSimple.Context
     public partial class MainContext : INodesContext
     {
         [Node("Column name", "Input", "Basic", "Input column name")]
-        public void ColumnName(string columnName, string tableName = "")
+        public void ColumnName(string columnName, string tableName = "", AggregateFunction function = AggregateFunction.None)
         {
+            var name = string.Empty;
             if (string.IsNullOrEmpty(tableName))
             {
-                appendToResult(columnName);
+                name = columnName;
             }
             else
             {
-                appendToResult(tableName);
-                appendToResult(".");
-                appendToResult(columnName);
+                name = string.Concat(tableName, Constants.POINT, columnName);
+            }
+            
+            if (function != AggregateFunction.None)
+            {
+                appendToResult(function.GetDescription());
+                appendToResult(Constants.LPAREN);
+                appendToResult(name);
+                appendToResult(Constants.RPAREN);
             }
         }
 
@@ -30,7 +37,7 @@ namespace SqlSimple.Context
         [Node("Rename", "Input", "Basic", "Input new name for column name")]
         public void Rename(string newName)
         {
-            appendToResult("as");
+            appendToResult(Constants.AS);
             appendToResult(newName);
         }
 
@@ -52,6 +59,12 @@ namespace SqlSimple.Context
         {
             appendToResult(compare.GetDescription());
         }
+
+        [Node("Aggregate function", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        public void Compare(AggregateFunction function)
+        {
+            appendToResult(function.GetDescription());
+        }
         
 
         [Node("Number Int", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
@@ -69,14 +82,14 @@ namespace SqlSimple.Context
         [Node("Number Exponential", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
         public void ExponentialNumber(string number)
         {
-            appendToResult(number.ToString(CultureInfo.InvariantCulture).Replace(',', '.'));
+            appendToResult(number.Replace(',', '.'));
         }
 
-        [Node("Number in a power", "Input", "Basic", "Input column name")]
+        [Node("Number in a power", "Input", "Basic")]
         public void NumberInPower(decimal number, decimal pow)
         {
             appendToResult(number.ToString(CultureInfo.InvariantCulture));
-            appendToResult("^");
+            appendToResult(Constants.POW);
             appendToResult(pow.ToString(CultureInfo.InvariantCulture));
         }
     }

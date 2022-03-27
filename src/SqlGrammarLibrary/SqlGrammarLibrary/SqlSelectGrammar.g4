@@ -7,8 +7,15 @@ query_specification
 	: SELECT (distinct)? query_expression (COMMA query_expression)*
 	;
 
+
+// TODO: All column *
+
 query_expression 
-	: expression (AS rename)?
+	: (expression | aggregate_function LPAREN expression RPAREN ) (AS rename)?
+	;
+
+aggregate_function
+	: COUNT | SUM | AVG | MIN | MAX 
 	;
 
 rename
@@ -197,15 +204,35 @@ ALL
 AS 
 	: A S ;
 
+END 
+	: E N D 
+	;
+
+MAX 
+	: M A X
+	;
+
+MIN
+	: M I N
+	;
+
+AVG 
+	: A V G
+	;
+
+SUM
+	: S U M
+	;
+
+COUNT 
+	: C O U N T
+	;
+
 DISTINCT 
 	: D I S T I N C T ;
 
 SELECT 
 	: S E L E C T
-	;
-
-END 
-	: E N D 
 	;
 // end keywords
 
