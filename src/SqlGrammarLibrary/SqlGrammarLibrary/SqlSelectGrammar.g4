@@ -29,6 +29,7 @@ expression
 	| expression (MULTIPLICATION | DIV) expression
 	| expression (PLUS | MINUS) expression
 	| aggregate_function LPAREN simple_expression RPAREN
+	| case_expression
 	| simple_expression
 	;
 
@@ -82,6 +83,20 @@ b_binary_strings
 	: B_STRING 
 	;
 
+case_expression 
+	: simple_case 
+	//| conditional_case
+	;
+
+simple_case
+	: 
+	CASE expression 
+		(WHEN expression THEN expression)+  
+		(ELSE expression)? 
+	END
+	;
+
+//conditional_case ::= CASE { WHEN condition THEN expression3 } [ ELSE expression4 ] END
 
 time_notation
 	: TIME
@@ -212,12 +227,25 @@ POINT
 	: '.'
 	;
 
+
 // This is keywords
+AS 
+	: A S ;
+
 ALL 
 	: A L L ;
 
-AS 
-	: A S ;
+CASE 
+	: C A S E ; 
+
+WHEN 
+	: W H E N ;
+
+THEN 
+	: T H E N ;
+
+ELSE 
+	: E L S E ;
 
 END 
 	: E N D 

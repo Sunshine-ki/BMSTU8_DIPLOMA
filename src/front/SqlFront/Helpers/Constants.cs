@@ -16,5 +16,10 @@ namespace SqlSimple.Helpers
         public const string AS = "as";
         public const string POW = "^";
         public const string ALL_DATA = "*";
+        public const string CASE = "CASE";
+        public const string WHEN = "WHEN";
+        public const string THEN = "THEN";
+        public const string ELSE = "ELSE";
+        public const string END = "END";
     }
 }
