@@ -59,6 +59,7 @@
     <Compile Include="Enums\Distinct.cs" />
     <Compile Include="Enums\Operator.cs" />
     <Compile Include="Enums\Sing.cs" />
+    <Compile Include="Enums\StringType.cs" />
     <Compile Include="SqlSimple.cs">
       <SubType>Form</SubType>
     </Compile>

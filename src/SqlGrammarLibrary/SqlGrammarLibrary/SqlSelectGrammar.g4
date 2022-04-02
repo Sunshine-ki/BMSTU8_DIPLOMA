@@ -19,8 +19,6 @@ rename
 	: NAME
 	;
 
-// TODO: В специфицации степени нет, убрать? 
-//(и скобок (LPAREN, RPAREN) тоже, но по сути мат выражение мы делать можем....?)
 expression
 	: expression POW expression
 	| LPAREN expression RPAREN
@@ -61,9 +59,23 @@ column_name
 
 literal
 	: number 
+	| binary_string
 	| character_string
-	//| binary_string
 	//| date_and_time_notation
+	;
+
+binary_string
+	: x_binary_strings
+	| b_binary_strings
+	;
+	
+
+x_binary_strings
+	: X_STRING 
+	;
+
+b_binary_strings
+	: B_STRING 
 	;
 
 number
@@ -240,6 +252,14 @@ SELECT
 // end keywords
 
 
+X_STRING
+	: X '\'' [0-9A-F]+  '\''
+	;
+
+B_STRING
+	: B '\'' ('0' | '1')+  '\''
+	;
+
 EXP_NUMBER
 	: (FLOAT | INT) EXP
 	;
@@ -256,11 +276,10 @@ NAME
 	: [a-zA-Z] [a-zA-Z0-9_]* 
 	;
 
-// TODO: replace " -> '
 // А еще нужно как-то предусмотреть ввод в строке символа ' 
 // (его нужно ввести дважды, чтобы юзать в sql)
 CHARACTER_STRING 
-	: '"' .*? '"'
+	: '\'' .*? '\''
 	;
 
 WHITESPACE          : (' '|'t')+ -> skip ; // WS  : [ \t\r\n]+ -> skip ;

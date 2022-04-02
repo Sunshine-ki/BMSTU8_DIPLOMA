@@ -45,6 +45,23 @@ namespace SqlSimple.Context
             appendToResult(newName);
         }
 
+        [Node("Input string", "Input", "Basic", "Input new name for column name")]
+        public void String(string InputString, StringType type = StringType.Character)
+        {
+            var typeResult = string.Empty;
+            switch (type)
+            {
+                case StringType.BinaryX:
+                    typeResult = "X";
+                    break;
+                case StringType.BinaryB:
+                    typeResult = "B";
+                    break;
+            }
+
+            appendToResult($"{typeResult}\'{InputString}\'");
+        }
+
 
         [Node("Sign", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
         public void Sign(Sing sing)
