@@ -31,6 +31,10 @@ namespace SqlSimple.Context
                 appendToResult(name);
                 appendToResult(Constants.RPAREN);
             }
+            else
+            {
+                appendToResult(name);
+            }
         }
 
 

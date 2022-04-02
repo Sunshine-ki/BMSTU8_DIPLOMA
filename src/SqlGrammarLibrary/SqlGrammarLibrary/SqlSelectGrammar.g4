@@ -7,17 +7,12 @@ query_specification
 	: SELECT (distinct)? query_expression (COMMA query_expression)*
 	;
 
-
 query_expression 
-	: (expression | aggregate_function LPAREN expression RPAREN | all_data) (AS rename)?
+	: (all_data | expression) (AS rename)?
 	;
 
 all_data
-	: ALL_DATA
-	;
-
-aggregate_function
-	: COUNT | SUM | AVG | MIN | MAX 
+	: '*'
 	;
 
 rename
@@ -28,10 +23,16 @@ rename
 //(и скобок (LPAREN, RPAREN) тоже, но по сути мат выражение мы делать можем....?)
 expression
 	: expression POW expression
+	| LPAREN expression RPAREN
 	| expression (MULTIPLICATION | DIV) expression
 	| expression (PLUS | MINUS) expression
-	| LPAREN expression RPAREN
+	| aggregate_function LPAREN simple_expression RPAREN
 	| simple_expression
+	;
+
+
+aggregate_function
+	: COUNT | SUM | AVG | MIN | MAX 
 	;
 
 compare
@@ -61,8 +62,8 @@ column_name
 literal
 	: number 
 	| character_string
-	| binary_string
-	| date_and_time_notation
+	//| binary_string
+	//| date_and_time_notation
 	;
 
 number
@@ -90,13 +91,13 @@ character_string
 	;
 
 // TODO: binary_string and date_and_time_notation
-binary_string
-	:
-	;
+//binary_string
+//	:
+//	;
 
-date_and_time_notation
-	:
-	;
+//date_and_time_notation
+//	:
+//	;
 
 
 distinct 
@@ -159,10 +160,6 @@ MINUS
    : '-'
    ;
 
-
-ALL_DATA
-	: '*'
-	;
 
 MULTIPLICATION
 	: '*'
