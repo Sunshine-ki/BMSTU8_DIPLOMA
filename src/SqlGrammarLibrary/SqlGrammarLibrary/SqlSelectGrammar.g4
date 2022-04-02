@@ -8,7 +8,11 @@ query_specification
 	;
 
 query_expression 
-	: (all_data | expression) (AS rename)?
+	: (all_data | expression | subquery) (AS rename)?
+	;
+
+subquery 
+	: LPAREN query_specification RPAREN
 	;
 
 all_data
