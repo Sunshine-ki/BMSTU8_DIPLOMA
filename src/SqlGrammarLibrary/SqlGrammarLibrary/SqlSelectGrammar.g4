@@ -60,8 +60,8 @@ column_name
 literal
 	: number 
 	| binary_string
+	| time_notation
 	| character_string
-	//| date_and_time_notation
 	;
 
 binary_string
@@ -76,6 +76,11 @@ x_binary_strings
 
 b_binary_strings
 	: B_STRING 
+	;
+
+
+time_notation
+	: TIME
 	;
 
 number
@@ -101,15 +106,6 @@ int_number
 character_string
 	: CHARACTER_STRING
 	;
-
-// TODO: binary_string and date_and_time_notation
-//binary_string
-//	:
-//	;
-
-//date_and_time_notation
-//	:
-//	;
 
 
 distinct 
@@ -258,6 +254,15 @@ X_STRING
 
 B_STRING
 	: B '\'' ('0' | '1')+  '\''
+	;
+
+TIME
+	: 
+	'\'' 
+		([0-9] | '1'[0-9] | '2'[0-3]) ':' // H
+		([0-9] | [0-5][0-9]) ':'		  // M
+		([0-9][0-9]?)					  // S
+	'\''
 	;
 
 EXP_NUMBER

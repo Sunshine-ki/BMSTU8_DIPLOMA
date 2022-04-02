@@ -45,7 +45,7 @@ namespace SqlSimple.Context
             appendToResult(newName);
         }
 
-        [Node("Input string", "Input", "Basic", "Input new name for column name")]
+        [Node("Input string", "Input", "Basic")]
         public void String(string InputString, StringType type = StringType.Character)
         {
             var typeResult = string.Empty;
@@ -60,6 +60,12 @@ namespace SqlSimple.Context
             }
 
             appendToResult($"{typeResult}\'{InputString}\'");
+        }
+
+        [Node("Input time", "Input", "Basic")]
+        public void Time(int hour = 0, int minute = 0, int second = 0)
+        {
+            appendToResult($"\'{hour}:{minute}:{second}\'");
         }
 
 
