@@ -5,6 +5,7 @@ grammar SqlSelectGrammar;
  */
 query_specification  
 	: SELECT (distinct)? query_expression (COMMA query_expression)*
+	  FROM generalized_table_specification 
 	;
 
 query_expression 
@@ -131,6 +132,42 @@ distinct
 	: ALL | DISTINCT
 	;
 
+generalized_table_specification
+	: generalized_table ( AS rename )?
+	;
+
+generalized_table
+	: table_identifier ( index_specification )?
+	// TODO:
+	//| LPAREN query_expression RPAREN 
+	| generalized_table join_type generalized_table ( join_specification )? // #Join 
+	;
+
+join_type
+	: CROSS JOIN
+	| (NATURAL)? ( INNER | ((LEFT | RIGHT | FULL ) ( OUTER )?) )? JOIN
+	;
+
+table_identifier
+	: NAME
+	;
+
+index_specification
+	: INDEX idx
+	;
+
+idx
+	: NAME
+	;
+
+join_specification
+	//: ON condition
+	| USING column_name ( COMMA column_name)*
+	;
+
+c/*ondition
+	:
+	;*/
 
 /*
  * Lexer Rules
@@ -229,6 +266,10 @@ POINT
 
 
 // This is keywords
+
+ON 
+	: O N ;
+ 
 AS 
 	: A S ;
 
@@ -267,8 +308,28 @@ SUM
 	: S U M
 	;
 
+USING
+	: U S I N G
+	;
+
+INDEX
+	: I N D E X 
+	;
+
+CROSS 
+	: C R O S S
+	;
+
+JOIN
+	: J O I N
+	;
+
 COUNT 
 	: C O U N T
+	;
+
+FROM
+	: F R O M
 	;
 
 DISTINCT 
@@ -276,6 +337,30 @@ DISTINCT
 
 SELECT 
 	: S E L E C T
+	;
+
+NATURAL
+	: N A T U R A L
+	;
+
+INNER
+	: I N N E R
+	;
+
+LEFT
+	: L E F T
+	;
+
+RIGHT
+	: R I G H T
+	;
+
+FULL
+	: F U L L
+	;
+
+OUTER
+	: O U T E R
 	;
 // end keywords
 
