@@ -161,13 +161,42 @@ idx
 	;
 
 join_specification
-	//: ON condition
+	: ON condition
 	| USING column_name ( COMMA column_name)*
 	;
 
-c/*ondition
-	:
-	;*/
+condition
+	: boolean_factor (OR boolean_factor)*
+	;
+
+boolean_factor
+	: boolean_expression (AND boolean_expression)*
+	;
+
+boolean_expression 
+	:( inversion )? predicate
+	;
+
+inversion
+	: NOT
+	;
+
+predicate 
+	: expression relational_operator expression 
+	| is_predicate	
+	;
+
+relational_operator 
+	: GT | LT | EQ | NOTEQ | LEQT |GEQT
+	;
+
+is_predicate 
+	: expression IS ( inversion )? stage
+	;
+
+stage
+	: TRUE | FALSE | UNKNOWN 
+	;
 
 /*
  * Lexer Rules
@@ -248,13 +277,27 @@ LT
    : '<'
    ;
 
+
 EQ
    : '='
+   ;
+
+GEQT
+   : '>' '='
+   ;
+
+
+LEQT
+   : '<' '='
    ;
 
 NEQ
 	: '!' '='
    ;
+
+NOTEQ
+	: '<' '>'
+	;
 
 COMMA
 	: ','
@@ -267,9 +310,21 @@ POINT
 
 // This is keywords
 
+IS
+	: I S ;
+
 ON 
 	: O N ;
- 
+
+OR
+	: O R ;
+
+NOT
+	: N O T ;
+
+AND 
+	: A N D ;
+
 AS 
 	: A S ;
 
@@ -290,6 +345,18 @@ ELSE
 
 END 
 	: E N D 
+	;
+
+TRUE 
+	: T R U E 
+	;
+
+FALSE
+	: F A L S E
+	;
+
+UNKNOWN 
+	: U N K N O W N
 	;
 
 MAX 
