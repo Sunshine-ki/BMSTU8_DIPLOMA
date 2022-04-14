@@ -10,7 +10,7 @@ query
 
 query_expression 
 	: query_term 
-	| query_expression connect query_term
+	| query_expression connect ( corresponding )? query_term
 	;
 
 query_term 
@@ -19,6 +19,10 @@ query_term
 
 connect
 	: ( UNION | EXCEPT ) ( ALL )?
+	;
+
+corresponding 
+	: CORRESPONDING ( BY column_name (COMMA column_name)* )?
 	;
 
 sorting
@@ -491,6 +495,10 @@ FULL
 
 OUTER
 	: O U T E R
+	;
+
+CORRESPONDING
+	: C O R R E S P O N D I N G
 	;
 // end keywords
 
