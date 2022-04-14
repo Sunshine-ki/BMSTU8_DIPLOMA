@@ -3,12 +3,46 @@ grammar SqlSelectGrammar;
 /*
  * Parser Rules
  */
-query_specification  
-	: SELECT (distinct)? query_expression (COMMA query_expression)*
-	  FROM generalized_table_specification 
+
+query
+	: query_expression
 	;
 
 query_expression 
+	: query_term 
+	| query_expression connect query_term
+	;
+
+query_term 
+	: query_specification ( sorting )? ( selection )?
+	;
+
+connect
+	: ( UNION | EXCEPT ) ( ALL )?
+	;
+
+sorting
+	: ORDER BY expression (ASC | DESC)? ( COMMA expression (ASC | DESC)? )*
+	;
+
+selection
+	:  limit_num ( offset_num )?
+	;
+
+limit_num 
+	: LIMIT ( int_number | ALL )
+	;
+
+offset_num
+	: OFFSET int_number
+	;
+
+query_specification
+	: SELECT (distinct)? qexpr (COMMA qexpr)*
+	  FROM generalized_table_specification 
+	;
+
+qexpr 
 	: (all_data | expression | subquery) (AS rename)?
 	;
 
@@ -86,7 +120,7 @@ b_binary_strings
 
 case_expression 
 	: simple_case 
-	//| conditional_case
+	//| conditional_case // TODO?
 	;
 
 simple_case
@@ -313,6 +347,9 @@ POINT
 IS
 	: I S ;
 
+BY 
+	: B Y ;
+
 ON 
 	: O N ;
 
@@ -330,6 +367,32 @@ AS
 
 ALL 
 	: A L L ;
+
+ASC 
+	: A S C ;
+
+DESC 
+	: D E S C ; 
+
+ORDER 
+	: O R D E R
+	;
+
+UNION 
+	: U N I O N
+	;
+
+LIMIT
+	: L I M I T
+	;
+
+OFFSET
+	: O F F S E T
+	;
+
+EXCEPT 
+	: E X C E P T
+	;
 
 CASE 
 	: C A S E ; 
