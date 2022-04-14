@@ -176,8 +176,7 @@ generalized_table_specification
 
 generalized_table
 	: table_identifier ( index_specification )? ( AS rename )?
-	// TODO:
-	//| LPAREN query_expression RPAREN 
+	| LPAREN query_expression RPAREN 
 	| generalized_table ( AS rename )? join_type generalized_table ( AS rename )? ( join_specification )? // #Join 
 	;
 
