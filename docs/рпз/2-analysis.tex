@@ -625,6 +625,28 @@ PostgreSQL для каждого нижележащего узла берет д
    rename ::= AS name
 \end{lstlisting}
 
+\subsection{Спецификация query\_expression}
+
+query\_expression  позволяет выполнять операции UNION, INTERSECT и EXCEPT над результатом  query\_specification
+Операция UNION объединяет наборы записей, 
+операция EXCEPT представляет различие, 
+а операция INTERSECT показывает только сходство. 
+Если ключевое слово ALL не указано, то каждая запись может быть в результате только один раз.
+
+Если CORRESPONDING не установлен, предполагается, что оба операнда имеют одинаковое количество
+столбцов и типы соответствующих столбцов одинаковы. Эти столбцы будут в результате.
+Результат выражения запроса сортируется в соответствии со значениями выражения ORDER BY.
+LIMIT задает количество записей в результате.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация query\_expression]
+   query_expression ::= { query_term | query_expression { UNION | EXCEPT } [ ALL ] 
+   [ corresponding ] query_term } [ sorting ] [ selection ]
+   query_term ::= query_specification  | query_term INTERSECT [ ALL ] [ corresponding ]  query_specification
+   corresponding ::= CORRESPONDING [ BY ( column_name {, column_name } ... )]
+   sorting ::= ORDER BY expression [ ASC | DESC ] {, expression [ASC | DESC ] } ... 
+   selection ::= LIMIT [ offset , ] count
+\end{lstlisting}
+
 \subsection{Спецификация expression}
 
 expression - это запись, состоящая из элементов, которую можно вычислить. 
@@ -674,7 +696,7 @@ expression - это запись, состоящая из элементов, к
 Подзапрос - вложенный запрос, содержащийся в предложении WHERE или HAVING другого оператора SQL.
 
 \begin{lstlisting}[language=sql, label=some-code, caption=Спецификация SQL запроса]
-   subquery ::= ( query_specification )
+   subquery ::= ( query_expression )
 \end{lstlisting}
 
 Выражение CASE служит для выбора значения одного из выражений на основе заданных условий. 
@@ -691,6 +713,140 @@ expression - это запись, состоящая из элементов, к
    conditional_CASE ::= CASE { WHEN condition THEN expression3 } [ ELSE expression4 ] END
 \end{lstlisting}
 
+\subsection{Спецификация generalized\_table}
+
+Выражение join объединяет записи из двух таблиц путем связывания значений 
+столбцов одной записи из первой таблицы и одной записи из второй таблицы. 
+join\_type и join\_specification задают метод объединения записей из таблиц.
+
+CROSS JOIN означает, что каждая запись соединяется со всеми записями из другой таблицы.
+NATURAL означает, что две обобщенные таблицы должны иметь столбец с одинаковым именем. 
+USING означает, что будут объединены только те записи, 
+которые имеют одинаковые значения в указанных столбцах.
+LEFT JOIN означает, что каждая запись из первой таблицы
+должна быть соединена с некоторой записью (хотя бы одной) из второй таблицы. 
+RIGHT JOIN означает, что каждая запись из второй таблицы
+должна быть соединена с некоторой записью (хотя бы одной) из первой таблицы
+FULL JOIN означает, что каждая запись из таблицы должна быть соединена
+с записью (хотя бы одной) из противоположной таблицы.
+INNER JOIN или JOIN означает, что записи, соответствующие join\_specification, должны быть объединены.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация generalized\_table]
+   generalized_table ::= { table_identifier [ index_specification ] 
+    | stored_query_identifier | system_query | ( query_expression ) | join }
+    [ rename ]
+   index_specification ::= INDEX index_name
+   join ::= generalized_table join_type generalized_table [ join_specification ]
+   join_type ::= CROSS JOIN | [ NATURAL ] [ INNER | { LEFT | RIGHT | FULL } [ OUTER ] ] JOIN 
+   join_specification ::= ON condition | USING ( column_name { , column_name } )
+   rename ::= [ AS ] name [( column_name { , column_name } )]
+\end{lstlisting}
+
+\subsection{Спецификация condition}
+
+condition - это выражение, которое может быть true, false или unknown.
+condition используется для оценки оператора CASE, предложений WHERE и HAVING в спецификации запроса.
+Приоритет оператора в condition определяется следующим образом:
+
+\begin{itemize}
+   \item *,/,DIV и MOD для умножения, деления, деления без остатка и модуля
+   \item +, - для сложения и вычитания.
+   \item Операторы отношения <,>,=,>=,<=,<>,.=,.=.,~ и предикаты (BETWEEN, LIKE и т. д.)
+   \item НЕ оператор
+   \item И оператор
+   \item оператор ИЛИ
+\end{itemize}
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация condition]
+condition ::= boolean_factor { OR boolean_factor }
+boolean_factor ::= boolean_expression { AND boolean_expression }
+boolean_expression ::= [ NOT ] predicate
+predicate ::= expression relational_operator expression    
+      | IS_predicate 
+      | generalized_comparison    
+      | between_predicate   
+      | in_predicate
+      | EXISTS_predicate
+      | UNIQUE_predicate
+      | LIKE_predicate 
+      | IS_NULL_predicate
+      | Fulltext predicate
+      | privilege_predicates
+      | ( condition )
+relational_operator ::= > | < | <= | >= | = | <>
+IS_predicate ::= expression IS [NOT] { TRUE | FALSE | UNKNOWN }
+\end{lstlisting}
+
+% \subsubsection{Спецификация generalized\_comparison}
+generalized\_comparison  сравнивает значение с набором значений из результата query\_expression (подзапроса).
+Если quantifier является SOME или ANY, 
+то обобщенное сравнение будет равно TRUE, если отношение 
+допустимо хотя бы для одного из значений результата подзапроса.
+Результатом будет unknown, если отношение unknown 
+хотя бы для одного из значений результата подзапроса, в противном случае оно будет false.
+Если quantifier равен ALL, то обобщенное сравнение будет равно true, 
+если отношение для всех значений результата подзапроса допустимо. 
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация generalized\_comparison]
+   generalized_comparison ::= expression  relational_operator quantifier ( query_expression )
+   relational_operator ::= < | > | = | <= | >= | <> 
+   quantifier  ::= SOME | ANY | ALL
+\end{lstlisting}
+
+Предикат BETWEEN указывает, находится ли expression между значениями expression2 и expression3. 
+Типы все выражений должны быть совместимы.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация between\_predicate]
+   between_predicate ::= expression [ NOT ] BETWEEN expression2 AND expression3
+\end{lstlisting}
+
+in\_predicate указывает, находится ли значение expression1 среди значений указанных
+expression или среди значений результата query\_expression (подзапроса).
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация in\_predicate]
+   in_predicate ::= expression1 [NOT] IN {( expression { , expression } ) | ( query_expression )}
+\end{lstlisting}
+
+Предикат EXISTS определяет, есть ли хотя бы одна запись в результате подзапроса.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация EXISTS\_predicate]
+   EXISTS_predicate ::= EXISTS ( query_expression )
+\end{lstlisting}
+
+Предикат UNIQUE сообщает, все ли записи в результате query\_expression (подзапроса)
+имеют уникальные значения. Учитываются только строки, не содержащие значение NULL.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация UNIQUE\_predicate]
+   UNIQUE_predicate ::= UNIQUE ( query_expression )
+\end{lstlisting}
+
+Предикат LIKE позволяет сравнить expression с expression2. 
+Все выражения должны иметь тип character string.
+Содержимое expression сравнивается с expression2 посимвольно со следующими исключениями: 
+символ подчеркивания «\_» в expression2 соответствует любому одиночному символу в выражении, 
+а символ процента «\%» в expression2 соответствует любой строке символов (даже пустой) в expression.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация LIKE\_predicate]
+   LIKE_predicate ::= expression [ NOT ] LIKE expression2 [ ESCAPE expression3 ]
+\end{lstlisting}
+
+IS\_NULL\_predicate позволяет сравнивать значение expression с null типом.
+
+\begin{lstlisting}[language=sql, label=some-code, caption=Спецификация IS\_NULL\_predicate]
+   IS_NULL_predicate::= expression IS [ NOT ] NULL
+\end{lstlisting}
+
+Fulltext predicate позволяет искать документы в fulltext system,
+содержащие определенные слова, фразы или комбинации, 
+используя операторы AND, OR, NOT и NEAR или используя круглые скобки.
+
+privilege\_predicates представляет пять специальных предикатов для определения привилегий указанных
+с учетом таблицы или записей таблицы. 
+Этими предикатами являются has\_select\_privil(для привилегии чтения), 
+has\_update\_privil (для привилегии обновления), 
+has\_delete\_privil (для привилегии удаления), 
+has\_insert\_privil (для привилегии вставки) 
+и has\_grant\_privil (для привилегии предоставления).
 
 \section{Формальные языки}
 
