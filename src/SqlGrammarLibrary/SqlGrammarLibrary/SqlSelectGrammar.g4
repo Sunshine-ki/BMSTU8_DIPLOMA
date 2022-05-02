@@ -44,6 +44,12 @@ offset_num
 query_specification
 	: SELECT (distinct)? qexpr (COMMA qexpr)*
 	  FROM generalized_table_specification 
+	  ( WHERE where_condition )?
+	;
+
+ 
+where_condition 
+	: condition
 	;
 
 qexpr 
@@ -218,21 +224,46 @@ inversion
 	: NOT
 	;
 
+// TODO: next... 
 predicate 
 	: expression relational_operator expression 
 	| is_predicate	
-	;
-
-relational_operator 
-	: GT | LT | EQ | NOTEQ | LEQT |GEQT
+	| generalized_comparison
+	| between_predicate
 	;
 
 is_predicate 
 	: expression IS ( inversion )? stage
 	;
 
+
+generalized_comparison
+	: expression relational_operator quantifier subquery
+	;
+
+between_predicate
+	: expression ( NOT )? BETWEEN expression2 AND expression3
+	;
+
+expression2
+	: expression
+	;
+
+expression3
+	: expression
+	;
+
+
 stage
-	: TRUE | FALSE | UNKNOWN 
+	: TRUE | FALSE | UNKNOWN // TRUE reads only in caps
+	;
+
+relational_operator 
+	: GT | LT | EQ | NOTEQ | LEQT |GEQT
+	;
+
+quantifier 
+	: SOME | ANY | ALL
 	;
 
 /*
@@ -371,8 +402,17 @@ AS
 ALL 
 	: A L L ;
 
+
 ASC 
 	: A S C ;
+
+ANY
+	: A N Y
+	;
+
+SOME 
+	: S O M E
+	;
 
 DESC 
 	: D E S C ; 
@@ -465,6 +505,10 @@ FROM
 	: F R O M
 	;
 
+BETWEEN
+	: B E T W E E N
+	;
+
 DISTINCT 
 	: D I S T I N C T ;
 
@@ -490,6 +534,14 @@ RIGHT
 
 FULL
 	: F U L L
+	;
+
+WHERE
+	: W H E R E
+	;
+
+GROUP
+	: G R O U P
 	;
 
 OUTER
