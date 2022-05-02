@@ -57,7 +57,7 @@ qexpr
 	;
 
 subquery 
-	: LPAREN query_specification RPAREN
+	: LPAREN query_expression RPAREN // TODO: Do you need to change to query_specification ?
 	;
 
 all_data
@@ -230,29 +230,46 @@ predicate
 	| is_predicate	
 	| generalized_comparison
 	| between_predicate
+	| in_predicate
+	| exists_predicate
+	| unique_predicate
+	| like_predicate
+	| is_null_predicate
+	| LPAREN condition RPAREN
 	;
 
 is_predicate 
 	: expression IS ( inversion )? stage
 	;
 
-
 generalized_comparison
 	: expression relational_operator quantifier subquery
 	;
 
 between_predicate
-	: expression ( NOT )? BETWEEN expression2 AND expression3
+	: expression ( NOT )? BETWEEN expression AND expression
 	;
 
-expression2
-	: expression
+in_predicate
+	: expression ( NOT )? IN 
+	( ( LPAREN expression ( COMMA expression )*  RPAREN ) | subquery )
 	;
 
-expression3
-	: expression
+exists_predicate
+	: EXISTS subquery
 	;
 
+unique_predicate
+	: UNIQUE subquery
+	;
+
+like_predicate
+	: expression ( NOT )? LIKE expression ( ESCAPE expression )?
+	;
+
+is_null_predicate 
+	: expression IS ( inversion )? NULL
+	;
 
 stage
 	: TRUE | FALSE | UNKNOWN // TRUE reads only in caps
@@ -381,6 +398,9 @@ POINT
 IS
 	: I S ;
 
+IN
+	: I N ;
+
 BY 
 	: B Y ;
 
@@ -412,6 +432,14 @@ ANY
 
 SOME 
 	: S O M E
+	;
+
+NULL
+	: N U L L
+	;
+
+LIKE
+	: L I K E
 	;
 
 DESC 
@@ -505,6 +533,14 @@ FROM
 	: F R O M
 	;
 
+EXISTS
+	: E X I S T S
+	;
+
+UNIQUE
+	: U N I Q U E
+	;
+
 BETWEEN
 	: B E T W E E N
 	;
@@ -514,6 +550,10 @@ DISTINCT
 
 SELECT 
 	: S E L E C T
+	;
+
+ESCAPE
+	: E S C A P E
 	;
 
 NATURAL
