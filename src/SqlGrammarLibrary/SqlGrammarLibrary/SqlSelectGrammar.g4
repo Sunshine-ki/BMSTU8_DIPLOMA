@@ -45,10 +45,19 @@ query_specification
 	: SELECT (distinct)? qexpr (COMMA qexpr)*
 	  FROM generalized_table_specification 
 	  ( WHERE where_condition )?
+	  ( GROUP BY expression_group )?
+	  ( HAVING having_condition )?
 	;
 
- 
 where_condition 
+	: condition
+	;
+
+expression_group 
+	: column_name_expression (COMMA column_name_expression)*
+	;
+
+having_condition
 	: condition
 	;
 
@@ -578,6 +587,10 @@ FULL
 
 WHERE
 	: W H E R E
+	;
+
+HAVING
+	: H A V I N G
 	;
 
 GROUP
