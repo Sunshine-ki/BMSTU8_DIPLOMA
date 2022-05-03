@@ -14,22 +14,22 @@ namespace SqlSimple.Context
         [Node("Column name", "Input", "Basic", "Input column name")]
         public void ColumnName(string columnName, string tableName = "", AggregateFunction function = AggregateFunction.None)
         {
-            var name = string.Empty;
+            string name;
             if (string.IsNullOrEmpty(tableName))
             {
                 name = columnName;
             }
             else
             {
-                name = string.Concat(tableName, Constants.POINT, columnName);
+                name = string.Concat(tableName, Tokens.POINT, columnName);
             }
             
             if (function != AggregateFunction.None)
             {
                 appendToResult(function.GetDescription());
-                appendToResult(Constants.LPAREN);
+                appendToResult(Tokens.LPAREN);
                 appendToResult(name);
-                appendToResult(Constants.RPAREN);
+                appendToResult(Tokens.RPAREN);
             }
             else
             {
@@ -37,11 +37,16 @@ namespace SqlSimple.Context
             }
         }
 
+        [Node("Table name", "Input", "Basic", "Input column name")]
+        public void TableName(string tableName)
+        {
+            appendToResult(tableName);
+        }
 
         [Node("Rename", "Input", "Basic", "Input new name for column name")]
         public void Rename(string newName)
         {
-            appendToResult(Constants.AS);
+            appendToResult(Tokens.AS);
             appendToResult(newName);
         }
 
@@ -87,12 +92,11 @@ namespace SqlSimple.Context
             appendToResult(compare.GetDescription());
         }
 
-        [Node("Aggregate function", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        [Node("Aggregate function", "Input", "Basic", width: Constants.WidthOnlyOneWord)] // Use it with only "(" and  ")"
         public void Compare(AggregateFunction function)
         {
             appendToResult(function.GetDescription());
         }
-        
 
         [Node("Number Int", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
         public void IntNumber(int number)
@@ -116,7 +120,7 @@ namespace SqlSimple.Context
         public void NumberInPower(decimal number, decimal pow)
         {
             appendToResult(number.ToString(CultureInfo.InvariantCulture));
-            appendToResult(Constants.POW);
+            appendToResult(Tokens.POW);
             appendToResult(pow.ToString(CultureInfo.InvariantCulture));
         }
     }

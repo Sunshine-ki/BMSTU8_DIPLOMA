@@ -14,7 +14,7 @@ namespace SqlSimple.Context
         [Node("Select", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Select()
         {
-            appendToResult("select");
+            appendToResult(Tokens.SELECT);
         }
 
         [Node("Distinct", "Keywords", "Basic", width: Constants.WidthOnlyOneWord)]
@@ -26,38 +26,43 @@ namespace SqlSimple.Context
         [Node("All data", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void AllData()
         {
-            appendToResult(Constants.ALL_DATA);
+            appendToResult(Tokens.ALL_DATA);
         }
-
 
         [Node("Case", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Case()
         {
-            appendToResult(Constants.CASE);
+            appendToResult(Tokens.CASE);
         }
 
         [Node("When", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void When()
         {
-            appendToResult(Constants.WHEN);
+            appendToResult(Tokens.WHEN);
         }
 
         [Node("Then", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Then()
         {
-            appendToResult(Constants.THEN);
+            appendToResult(Tokens.THEN);
         }
 
         [Node("Else", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Else()
         {
-            appendToResult(Constants.ELSE);
+            appendToResult(Tokens.ELSE);
         }
 
         [Node("End case", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void EndCase()
         {
-            appendToResult(Constants.END);
+            appendToResult(Tokens.END);
+        }
+
+        [Node("From", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void From()
+        {
+            appendToResult(Tokens.FROM);
         }
     }
 }

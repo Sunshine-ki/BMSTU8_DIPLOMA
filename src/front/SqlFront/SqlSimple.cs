@@ -37,7 +37,6 @@ namespace SqlSimple
 
         public void SomeMethod(string str)
         {
-            // TODO: Here to create a AST
             Console.WriteLine($"SomeMethod: {str}");
         }
 

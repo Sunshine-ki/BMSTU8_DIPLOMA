@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using SqlSimple.Enums;
 using SqlSimple.Helpers;
 using NodeEditor;
+using Antlr4.Runtime;
+using SqlGrammarLibrary;
+using SqlSimple.Helpers.Listeners;
 
 namespace SqlSimple.Context
 {
@@ -41,9 +44,22 @@ namespace SqlSimple.Context
         [Node("End", "Helpers", "Basic", "Shows input value in the message box.", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void End()
         {
-            var value = _result.ToString();
-            OnResult?.Invoke(value);
-            MessageBox.Show(value, "Show Value", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var sqlQuery = _result.ToString();
+            onResultInvoke(sqlQuery);
+            Console.WriteLine($"sqlQuery: {sqlQuery}");
+
+            var parser = new SqlParser(sqlQuery);
+            parser.ParseQuery();
+            var err = parser.GetFirstError();
+
+            string msg = err == null ? "Success" : err.Message;
+            MessageBox.Show(msg, "Show Value", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void onResultInvoke(string sqlQuery)
+        {
+            OnResult?.Invoke(sqlQuery);
+        }
+
     }
 }
