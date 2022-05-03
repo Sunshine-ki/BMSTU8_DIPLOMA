@@ -53,7 +53,7 @@ namespace SqlSimple.Context
             var err = parser.GetFirstError();
 
             string msg = err == null ? "Success" : err.Message;
-            MessageBox.Show(msg, "Show Value", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{msg} (query = {sqlQuery})", "Show Value", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void onResultInvoke(string sqlQuery)

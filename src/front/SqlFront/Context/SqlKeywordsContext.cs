@@ -64,5 +64,30 @@ namespace SqlSimple.Context
         {
             appendToResult(Tokens.FROM);
         }
+
+        [Node("Where", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void Where()
+        {
+            appendToResult(Tokens.WHERE);
+        }
+
+        [Node("Having", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void Having()
+        {
+            appendToResult(Tokens.HAVING);
+        }
+
+        [Node("Union", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void Union()
+        {
+            appendToResult(Tokens.UNION);
+        }
+
+        [Node("Except", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
+        public void Except()
+        {
+            appendToResult(Tokens.EXCEPT);
+        }
+
     }
 }

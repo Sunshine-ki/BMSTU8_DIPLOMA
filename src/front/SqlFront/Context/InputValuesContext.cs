@@ -12,17 +12,12 @@ namespace SqlSimple.Context
     public partial class MainContext : INodesContext
     {
         [Node("Column name", "Input", "Basic", "Input column name")]
-        public void ColumnName(string columnName, string tableName = "", AggregateFunction function = AggregateFunction.None)
+        public void ColumnName(string columnName, string tableName = "", 
+            AggregateFunction function = AggregateFunction.None, string rename = "")
         {
-            string name;
-            if (string.IsNullOrEmpty(tableName))
-            {
-                name = columnName;
-            }
-            else
-            {
-                name = string.Concat(tableName, Tokens.POINT, columnName);
-            }
+            var name = string.IsNullOrEmpty(tableName) ?
+                       columnName :
+                       string.Concat(tableName, Tokens.POINT, columnName);
             
             if (function != AggregateFunction.None)
             {
@@ -35,19 +30,21 @@ namespace SqlSimple.Context
             {
                 appendToResult(name);
             }
+
+            if (!string.IsNullOrEmpty(rename)) appendToResult($"{Tokens.AS} {rename}");
         }
 
         [Node("Table name", "Input", "Basic", "Input column name")]
-        public void TableName(string tableName)
+        public void TableName(string tableName, string rename = "")
         {
             appendToResult(tableName);
+            if (!string.IsNullOrEmpty(rename)) appendToResult($"{Tokens.AS} {rename}");
         }
 
         [Node("Rename", "Input", "Basic", "Input new name for column name")]
         public void Rename(string newName)
         {
-            appendToResult(Tokens.AS);
-            appendToResult(newName);
+            appendToResult($"{Tokens.AS} {newName}");
         }
 
         [Node("Input string", "Input", "Basic")]
@@ -122,6 +119,12 @@ namespace SqlSimple.Context
             appendToResult(number.ToString(CultureInfo.InvariantCulture));
             appendToResult(Tokens.POW);
             appendToResult(pow.ToString(CultureInfo.InvariantCulture));
+        }
+
+        [Node("Limit", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        public void Limit(int number)
+        {
+            appendToResult($"{Tokens.LIMIT} {number}");
         }
     }
 }
