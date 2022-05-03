@@ -80,6 +80,7 @@
     <Compile Include="Context\СharactersContext.cs" />
     <Compile Include="Enums\AggregateFunction.cs" />
     <Compile Include="Enums\Compare.cs" />
+    <Compile Include="Enums\Direction.cs" />
     <Compile Include="Enums\Distinct.cs" />
     <Compile Include="Enums\Operator.cs" />
     <Compile Include="Enums\Sing.cs" />

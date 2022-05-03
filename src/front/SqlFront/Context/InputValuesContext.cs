@@ -126,5 +126,18 @@ namespace SqlSimple.Context
         {
             appendToResult($"{Tokens.LIMIT} {number}");
         }
+
+        [Node("Offset", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        public void Offset(int number)
+        {
+            appendToResult($"{Tokens.OFFSET} {number}");
+        }
+
+        [Node("Direction", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
+        public void Direction(Direction direction)
+        {
+            appendToResult(direction.GetDescription());
+        }
+
     }
 }

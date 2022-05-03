@@ -28,10 +28,12 @@ namespace SqlSimple.Helpers
         public const string SELECT = "SELECT";
         public const string WHERE = "WHERE";
         public const string GROUP_BY = "GROUP BY";
+        public const string ORDER_BY = "ORDER BY";
         public const string HAVING = "HAVING";
         public const string UNION = "UNION";
         public const string EXCEPT = "EXCEPT";
         public const string LIMIT = "LIMIT";
+        public const string OFFSET = "OFFSET";
 
     }
 }

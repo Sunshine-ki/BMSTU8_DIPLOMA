@@ -89,5 +89,12 @@ namespace SqlSimple.Context
             appendToResult(Tokens.EXCEPT);
         }
 
+        [Node("Order by", "Keywords", "Basic")]
+        public void OrderBy(string columnName, Direction direction = Enums.Direction.Asc)
+        {
+            appendToResult($"{Tokens.ORDER_BY} {columnName} {direction}");
+        }
+
+
     }
 }
