@@ -94,7 +94,7 @@ namespace SqlSimple.Context
         {
             appendToResult($"{Tokens.ORDER_BY} {columnName} {direction}");
         }
-
+        
 
     }
 }

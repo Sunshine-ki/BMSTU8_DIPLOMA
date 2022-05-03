@@ -233,7 +233,6 @@ inversion
 	: NOT
 	;
 
-// TODO: next... 
 predicate 
 	: expression relational_operator expression 
 	| is_predicate	
