@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace MathSample.ContextStr
+namespace MathSample.StrContext
 {
     public enum Compare
     {

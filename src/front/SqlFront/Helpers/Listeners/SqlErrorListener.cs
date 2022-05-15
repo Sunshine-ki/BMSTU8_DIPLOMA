@@ -39,15 +39,17 @@ namespace MathSample.Helpers.Listeners
          string msg, RecognitionException e)
         {
             IsValid = false;
-
-            Errors.Add(new AntlrErrorModel()
+            var antlrErr = new AntlrErrorModel()
             {
                 Message = msg,
                 Line = line,
                 Token = offendingSymbol,
                 Offset = charPositionInLine,
                 Recognizer = recognizer
-            });
+            };
+
+
+            Errors.Add(antlrErr);
         }
 
         public void OutputErrorMessages()

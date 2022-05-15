@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathSample.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -27,6 +28,27 @@ namespace MathSample.Helpers
             }
 
             return description;
+        }
+
+        public static int GetTokenType<T>(this T enumValue)
+               where T : struct, IConvertible
+        {
+            var result = -1;
+            if (!typeof(T).IsEnum)
+                return result;
+
+            var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
+
+            if (fieldInfo != null)
+            {
+                var attrs = fieldInfo.GetCustomAttributes(typeof(TokenTypeAttribute), true);
+                if (attrs != null && attrs.Length > 0)
+                {
+                    result = ((TokenTypeAttribute)attrs[0]).TokenType;
+                }
+            }
+
+            return result;
         }
     }
 }

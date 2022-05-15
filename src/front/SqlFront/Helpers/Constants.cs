@@ -29,6 +29,8 @@ namespace MathSample.Helpers
         public const string WHERE = "WHERE";
         public const string GROUP_BY = "GROUP BY";
         public const string ORDER_BY = "ORDER BY";
+        public const string ORDER = "ORDER";
+        public const string BY = "BY";
         public const string HAVING = "HAVING";
         public const string UNION = "UNION";
         public const string EXCEPT = "EXCEPT";

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MathSample.ContextStr
+namespace MathSample.StrContext
 {
-    partial class MainContextStr : INodesContext
+    partial class MainStrContext : INodesContext
     {
         [Node("Separator", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Separator()

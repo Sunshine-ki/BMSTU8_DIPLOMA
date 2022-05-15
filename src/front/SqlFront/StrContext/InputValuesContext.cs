@@ -1,4 +1,5 @@
-﻿using MathSample.Helpers;
+﻿using MathSample.Enums;
+using MathSample.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;
@@ -6,9 +7,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace MathSample.ContextStr
+
+namespace MathSample.StrContext
 {
-    partial class MainContextStr : INodesContext
+    partial class MainStrContext : INodesContext
     {
         [Node("Column name", "Input", "Basic", "Input column name")]
         public void ColumnName(string columnName, string tableName = "",

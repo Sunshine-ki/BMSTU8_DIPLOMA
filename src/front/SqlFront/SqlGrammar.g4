@@ -70,7 +70,7 @@ subquery
 	;
 
 all_data
-	: '*'
+	: STAR
 	;
 
 rename
@@ -80,7 +80,7 @@ rename
 expression
 	: expression POW expression
 	| LPAREN expression RPAREN
-	| expression (MULTIPLICATION | DIV) expression
+	| expression (STAR | DIV) expression
 	| expression (PLUS | MINUS) expression
 	| aggregate_function LPAREN simple_expression RPAREN
 	| case_expression
@@ -346,8 +346,7 @@ MINUS
    : '-'
    ;
 
-
-MULTIPLICATION
+STAR
 	: '*'
 	;
 

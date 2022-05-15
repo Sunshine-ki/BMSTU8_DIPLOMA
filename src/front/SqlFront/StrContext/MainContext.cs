@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MathSample.ContextStr
+namespace MathSample.StrContext
 {
-    partial class MainContextStr : INodesContext
+    partial class MainStrContext : INodesContext
     {
         public NodeVisual CurrentProcessingNode { get; set; }
         public event Action<string, NodeVisual, FeedbackType, object, bool> FeedbackInfo;

@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=e9931a4108ef2354, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\antlr4cs\runtime\CSharp\Antlr4.Runtime\bin\Debug\net35-cf\Antlr4.Runtime.dll</HintPath>
+      <HintPath>..\..\..\..\antlr4cs\runtime\CSharp\Antlr4.Runtime\bin\Debug\net35-cf\Antlr4.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,10 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextStr\CharactersContext.cs" />
-    <Compile Include="ContextStr\InputValuesContext.cs" />
-    <Compile Include="ContextStr\MainContext.cs" />
-    <Compile Include="ContextStr\SqlKeywordsContext.cs" />
+    <Compile Include="Attributes\TokenType.cs" />
+    <Compile Include="Models\MyToken.cs" />
+    <Compile Include="StrContext\CharactersContext.cs" />
+    <Compile Include="StrContext\InputValuesContext.cs" />
+    <Compile Include="StrContext\MainContext.cs" />
+    <Compile Include="StrContext\SqlKeywordsContext.cs" />
     <Compile Include="Enums\AggregateFunction.cs" />
     <Compile Include="Enums\Compare.cs" />
     <Compile Include="Enums\Direction.cs" />
@@ -88,6 +90,10 @@
     <Compile Include="SqlGrammar.g4.parser.cs">
       <DependentUpon>SqlGrammar.g4</DependentUpon>
     </Compile>
+    <Compile Include="TokensContext\CharactersTokensContext.cs" />
+    <Compile Include="TokensContext\InputValuesTokensContext.cs" />
+    <Compile Include="TokensContext\MainTokensContext.cs" />
+    <Compile Include="TokensContext\SqlKeywordsTokenContext.cs" />
     <EmbeddedResource Include="FormMathSample.resx">
       <DependentUpon>FormMathSample.cs</DependentUpon>
     </EmbeddedResource>

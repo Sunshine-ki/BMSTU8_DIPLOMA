@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MathSample.Models
 {
-    public class AntlrErrorModel
+   public class AntlrErrorModel
     {
         public string Message { get; set; }
         public int Line { get; set; }
@@ -14,6 +14,17 @@ namespace MathSample.Models
         public IToken Token { get; set; }
         public IRecognizer Recognizer { get; set; }
 
-        public override string ToString() => $"line {Line}:{Offset} {Message}";
+        public override string ToString()
+        {
+
+            //Console.WriteLine($"From ToString() Token: {Token.Type} {Token.Text} {Token.StartIndex} {Token.StopIndex}");
+            //Console.WriteLine($"From ToString() Recognizer: {Recognizer.Vocabulary.GetDisplayName(Token.Type)} ");
+            //Console.WriteLine($"From ToString() Recognizer: {Recognizer.Vocabulary.GetLiteralName(Token.Type)} ");
+            //Console.WriteLine($"From ToString() Recognizer: {Recognizer.Vocabulary.GetSymbolicName(Token.Type)} ");
+
+            //Console.WriteLine($"From ToString() Recognizer: {Recognizer.InputStream.SourceName}");
+            return $"line {Line}:{Offset} {Message}";
+        }
+
     }
 }
