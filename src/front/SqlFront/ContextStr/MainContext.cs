@@ -1,22 +1,14 @@
-﻿using System;
+﻿using MathSample.Helpers;
+using NodeEditor;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SqlSimple.Enums;
-using SqlSimple.Helpers;
-using NodeEditor;
-using Antlr4.Runtime;
-using SqlGrammarLibrary;
-using SqlSimple.Helpers.Listeners;
 
-namespace SqlSimple.Context
+namespace MathSample.ContextStr
 {
-    // Main context of the sample, each
-    // method corresponds to a node by attribute decoration
-    public partial class MainContext : INodesContext
+    partial class MainContextStr : INodesContext
     {
         public NodeVisual CurrentProcessingNode { get; set; }
         public event Action<string, NodeVisual, FeedbackType, object, bool> FeedbackInfo;
@@ -48,7 +40,7 @@ namespace SqlSimple.Context
             onResultInvoke(sqlQuery);
             Console.WriteLine($"sqlQuery: {sqlQuery}");
 
-            var parser = new SqlParser(sqlQuery);
+            var parser = new SqlParserStr(sqlQuery);
             parser.ParseQuery();
             var err = parser.GetFirstError();
 
@@ -60,6 +52,5 @@ namespace SqlSimple.Context
         {
             OnResult?.Invoke(sqlQuery);
         }
-
     }
 }

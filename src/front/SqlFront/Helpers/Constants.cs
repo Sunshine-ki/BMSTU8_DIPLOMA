@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SqlSimple.Helpers
+namespace MathSample.Helpers
 {
     public class Constants
     {

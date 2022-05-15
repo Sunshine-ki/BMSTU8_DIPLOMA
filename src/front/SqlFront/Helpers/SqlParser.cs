@@ -1,52 +1,78 @@
 ﻿using Antlr4.Runtime;
-using SqlGrammarLibrary;
-using SqlSimple.Helpers.Listeners;
-using SqlSimple.Models;
+using MathSample.Helpers.Listeners;
+using MathSample.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SqlSimple.Helpers
+namespace MathSample.Helpers
 {
     public class SqlParser
     {
-        private SqlSelectGrammarLexer sqlLexer;
-        private SqlSelectGrammarParser sqlParser;
-        private SqlErrorListener sqlErrorListener;
+        private SqlGrammarParser _sqlParser;
+        private CommonTokenStream _commonTokenStream;
+        private SqlErrorListener _errorListenerParser;
 
-        public SqlParser(string sqlQuery)
+        public SqlParser(List<IToken> tokens)
         {
-            var inputStream = new AntlrInputStream(sqlQuery);
-            sqlLexer = new SqlSelectGrammarLexer(inputStream);
-            var commonTokenStream = new CommonTokenStream(sqlLexer);
-            sqlParser = new SqlSelectGrammarParser(commonTokenStream);
-            //sqlParser.RemoveErrorListeners();
-            sqlErrorListener = SqlErrorListener.CreateListener();
-            sqlParser.AddErrorListener(sqlErrorListener);
+            _errorListenerParser = new SqlErrorListener();
+            _commonTokenStream = new CommonTokenStream();
+            _commonTokenStream.Tokens = tokens;
+            _sqlParser = new SqlGrammarParser(_commonTokenStream);
+            //speakParser.RemoveErrorListeners();
+            _sqlParser.AddErrorListener(_errorListenerParser);
+
         }
 
         public bool ParseQuery()
         {
-            _ = sqlParser.query();
-            return sqlErrorListener.IsValid;
-        }
-
-        public AntlrErrorModel GetFirstError()
-        {
-            if (sqlErrorListener.IsValid || sqlErrorListener.Errors.Count < 1)
+            try
             {
-                return null;
+                var context = _sqlParser.query();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex);
+                return false;
             }
 
-            return sqlErrorListener.Errors.First();
+            return _errorListenerParser.IsValid;
         }
+    }
+
+    public class SqlParserStr
+    {
+            private SqlGrammarLexer sqlLexer;
+            private SqlGrammarParser sqlParser;
+            private SqlErrorListener sqlErrorListener;
+
+            public SqlParserStr(string sqlQuery)
+            {
+                var inputStream = new AntlrInputStream(sqlQuery);
+                sqlLexer = new SqlGrammarLexer(inputStream);
+                var commonTokenStream = new CommonTokenStream(sqlLexer);
+                sqlParser = new SqlGrammarParser(commonTokenStream);
+                //sqlParser.RemoveErrorListeners();
+                sqlErrorListener = SqlErrorListener.CreateListener();
+                sqlParser.AddErrorListener(sqlErrorListener);
+            }
+
+            public bool ParseQuery()
+            {
+                _ = sqlParser.query();
+                return sqlErrorListener.IsValid;
+            }
+
+            public AntlrErrorModel GetFirstError()
+            {
+                if (sqlErrorListener.IsValid || sqlErrorListener.Errors.Count < 1)
+                {
+                    return null;
+                }
+
+                return sqlErrorListener.Errors.First();
+            }
 
     }
 }
-
-//Console.WriteLine($"IsValid = {sqlErrorListener.IsValid}");
-//if (!sqlErrorListener.IsValid)
-//{
-//    sqlErrorListener.OutputErrorMessages();
-//}

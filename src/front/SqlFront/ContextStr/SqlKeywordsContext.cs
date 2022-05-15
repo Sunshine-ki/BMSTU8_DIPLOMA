@@ -1,15 +1,13 @@
-﻿using SqlSimple.Enums;
-using SqlSimple.Helpers;
+﻿using MathSample.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
-namespace SqlSimple.Context
+namespace MathSample.ContextStr
 {
-    public partial class MainContext : INodesContext
+    partial class MainContextStr : INodesContext
     {
         [Node("Select", "Keywords", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Select()
@@ -90,11 +88,9 @@ namespace SqlSimple.Context
         }
 
         [Node("Order by", "Keywords", "Basic")]
-        public void OrderBy(string columnName, Direction direction = Enums.Direction.Asc)
+        public void OrderBy(string columnName, Direction direction)
         {
             appendToResult($"{Tokens.ORDER_BY} {columnName} {direction}");
         }
-        
-
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SqlSimple.Models
+namespace MathSample.Models
 {
     public class AntlrErrorModel
     {
@@ -16,5 +16,4 @@ namespace SqlSimple.Models
 
         public override string ToString() => $"line {Line}:{Offset} {Message}";
     }
-
 }

@@ -1,5 +1,4 @@
-﻿using SqlSimple.Enums;
-using SqlSimple.Helpers;
+﻿using MathSample.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;
@@ -7,18 +6,18 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace SqlSimple.Context
+namespace MathSample.ContextStr
 {
-    public partial class MainContext : INodesContext
+    partial class MainContextStr : INodesContext
     {
         [Node("Column name", "Input", "Basic", "Input column name")]
-        public void ColumnName(string columnName, string tableName = "", 
+        public void ColumnName(string columnName, string tableName = "",
             AggregateFunction function = AggregateFunction.None, string rename = "")
         {
             var name = string.IsNullOrEmpty(tableName) ?
                        columnName :
                        string.Concat(tableName, Tokens.POINT, columnName);
-            
+
             if (function != AggregateFunction.None)
             {
                 appendToResult(function.GetDescription());

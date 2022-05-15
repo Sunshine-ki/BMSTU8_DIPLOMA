@@ -8,8 +8,8 @@
     <ProjectGuid>{8E8DE586-581D-4740-967D-E45FB7160745}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SqlSimple</RootNamespace>
-    <AssemblyName>SqlSimple</AssemblyName>
+    <RootNamespace>MathSample</RootNamespace>
+    <AssemblyName>MathSample</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -35,14 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=09abb75b9ed49849, processorArchitecture=MSIL">
-      <HintPath>packages\Antlr4.Runtime.4.6.6\lib\net40-client\Antlr4.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="NodeEditor">
-      <HintPath>..\SampleCommon\bin\Debug\NodeEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="SampleCommon">
-      <HintPath>..\SampleCommon\bin\Debug\SampleCommon.dll</HintPath>
+    <Reference Include="Antlr4.Runtime, Version=4.6.0.0, Culture=neutral, PublicKeyToken=e9931a4108ef2354, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\antlr4cs\runtime\CSharp\Antlr4.Runtime\bin\Debug\net35-cf\Antlr4.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,28 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarBaseListener.cs">
-      <Link>SqlSelectGrammarBaseListener.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarBaseVisitor.cs">
-      <Link>SqlSelectGrammarBaseVisitor.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarLexer.cs">
-      <Link>SqlSelectGrammarLexer.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarListener.cs">
-      <Link>SqlSelectGrammarListener.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarParser.cs">
-      <Link>SqlSelectGrammarParser.cs</Link>
-    </Compile>
-    <Compile Include="..\..\SqlGrammarLibrary\SqlGrammarLibrary\obj\Debug\netstandard1.4\SqlSelectGrammarVisitor.cs">
-      <Link>SqlSelectGrammarVisitor.cs</Link>
-    </Compile>
-    <Compile Include="Context\InputValuesContext.cs" />
-    <Compile Include="Context\MainContext.cs" />
-    <Compile Include="Context\SqlKeywordsContext.cs" />
-    <Compile Include="Context\СharactersContext.cs" />
+    <Compile Include="ContextStr\CharactersContext.cs" />
+    <Compile Include="ContextStr\InputValuesContext.cs" />
+    <Compile Include="ContextStr\MainContext.cs" />
+    <Compile Include="ContextStr\SqlKeywordsContext.cs" />
     <Compile Include="Enums\AggregateFunction.cs" />
     <Compile Include="Enums\Compare.cs" />
     <Compile Include="Enums\Direction.cs" />
@@ -85,21 +62,34 @@
     <Compile Include="Enums\Operator.cs" />
     <Compile Include="Enums\Sing.cs" />
     <Compile Include="Enums\StringType.cs" />
-    <Compile Include="Helpers\Listeners\SqlErrorListener.cs" />
-    <Compile Include="Helpers\SqlParser.cs" />
-    <Compile Include="Models\AntlrErrorModel.cs" />
-    <Compile Include="SqlSimple.cs">
+    <Compile Include="FormMathSample.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SqlSimple.Designer.cs">
-      <DependentUpon>SqlSimple.cs</DependentUpon>
+    <Compile Include="FormMathSample.Designer.cs">
+      <DependentUpon>FormMathSample.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
+    <Compile Include="Helpers\Listeners\SqlErrorListener.cs" />
+    <Compile Include="Helpers\SqlParser.cs" />
+    <Compile Include="MathContext.cs" />
+    <Compile Include="Models\AntlrErrorModel.cs" />
+    <Compile Include="obj\Debug\SqlGrammarBaseListener.cs" />
+    <Compile Include="obj\Debug\SqlGrammarBaseVisitor.cs" />
+    <Compile Include="obj\Debug\SqlGrammarLexer.cs" />
+    <Compile Include="obj\Debug\SqlGrammarListener.cs" />
+    <Compile Include="obj\Debug\SqlGrammarParser.cs" />
+    <Compile Include="obj\Debug\SqlGrammarVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="SqlSimple.resx">
-      <DependentUpon>SqlSimple.cs</DependentUpon>
+    <Compile Include="SqlGrammar.g4.lexer.cs">
+      <DependentUpon>SqlGrammar.g4</DependentUpon>
+    </Compile>
+    <Compile Include="SqlGrammar.g4.parser.cs">
+      <DependentUpon>SqlGrammar.g4</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FormMathSample.resx">
+      <DependentUpon>FormMathSample.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,8 +99,10 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="default.nds">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,11 +113,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Antlr4 Include="SqlGrammar.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>MathSample</CustomToolNamespace>
+    </Antlr4>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NodeEditor\NodeEditor.csproj">
+      <Project>{2a51d621-3e0d-4293-a2ad-964721bfff7b}</Project>
+      <Name>NodeEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SampleCommon\SampleCommon.csproj">
+      <Project>{b3f8f101-029b-4c8f-bb3f-5720075ea634}</Project>
+      <Name>SampleCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.props'))" />
     <Error Condition="!Exists('packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Antlr4.CodeGenerator.4.6.6\build\Antlr4.CodeGenerator.targets'))" />

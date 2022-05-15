@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 
-namespace SqlSimple.Enums
+namespace MathSample.ContextStr
 {
     public enum StringType
     {

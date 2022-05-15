@@ -1,20 +1,19 @@
-﻿using SqlSimple.Helpers;
+﻿using MathSample.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SqlSimple.Context
+namespace MathSample.ContextStr
 {
-    public partial class MainContext : INodesContext
+    partial class MainContextStr : INodesContext
     {
         [Node("Separator", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void Separator()
         {
             appendToResult(",");
         }
-
 
         [Node("Left bracket", "Сharacters", "Basic", width: Constants.WidthOnlyOneWord, height: Constants.HeightOnlyOneWord)]
         public void LeftBracket()

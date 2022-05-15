@@ -2,13 +2,11 @@
 using Antlr4.Runtime.Atn;
 using Antlr4.Runtime.Dfa;
 using Antlr4.Runtime.Sharpen;
-using SqlSimple.Models;
+using MathSample.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace SqlSimple.Helpers.Listeners
+namespace MathSample.Helpers.Listeners
 {
     public class SqlErrorListener : BaseErrorListener // https://putridparrot.com/blog/antlr-in-c/
     {

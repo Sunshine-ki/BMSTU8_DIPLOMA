@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace SqlSimple.Enums
+namespace MathSample.ContextStr
 {
     public enum Operator
     {
