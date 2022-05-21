@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\..\..\..\antlr4cs\runtime\CSharp\Antlr4.Runtime\bin\Release\net35-cf\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="MathSample">
+      <HintPath>..\..\front\SqlFront\bin\Release\MathSample.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

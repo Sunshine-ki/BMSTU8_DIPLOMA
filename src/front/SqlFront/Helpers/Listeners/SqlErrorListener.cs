@@ -19,19 +19,24 @@ namespace MathSample.Helpers.Listeners
           Parser recognizer, DFA dfa,
           int startIndex, int stopIndex,
           bool exact, BitSet ambigAlts,
-          ATNConfigSet configs) => IsValid = false;
+          ATNConfigSet configs)
+        { }
+        //=> IsValid = false;
 
 
         public override void ReportAttemptingFullContext(
           Parser recognizer, DFA dfa,
           int startIndex, int stopIndex,
-          BitSet conflictingAlts, SimulatorState conflictState) => IsValid = false;
+          BitSet conflictingAlts, SimulatorState conflictState) 
+            //=> IsValid = false;
+        { }
 
         public override void ReportContextSensitivity(
           Parser recognizer, DFA dfa,
           int startIndex, int stopIndex,
-          int prediction, SimulatorState acceptState) => IsValid = false;
-
+          int prediction, SimulatorState acceptState)
+        //=> IsValid = false;
+        { }
 
         public override void SyntaxError(
           IRecognizer recognizer, IToken offendingSymbol,

@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Tree;
 using MathSample.Helpers.Listeners;
 using MathSample.Models;
 using System;
@@ -10,6 +11,7 @@ namespace MathSample.Helpers
     public abstract class SqlParserBase
     {
         protected SqlErrorListener _sqlErrorListener = SqlErrorListener.CreateListener();
+        protected SqlGrammarParser _sqlParser;
 
         public virtual AntlrErrorModel GetFirstError()
         {
@@ -26,28 +28,13 @@ namespace MathSample.Helpers
             if (_sqlErrorListener.IsValid) return;
             _sqlErrorListener.OutputErrorMessages();
         }
-    }
-
-    public class SqlParser : SqlParserBase
-    {
-        private SqlGrammarParser _sqlParser;
-        private CommonTokenStream _commonTokenStream;
-
-        public SqlParser(List<IToken> tokens)
-        {
-            _commonTokenStream = new CommonTokenStream();
-            _commonTokenStream.Tokens = tokens;
-            _sqlParser = new SqlGrammarParser(_commonTokenStream);
-            //speakParser.RemoveErrorListeners();
-            _sqlParser.AddErrorListener(_sqlErrorListener);
-
-        }
 
         public bool ParseQuery()
         {
             try
             {
                 var context = _sqlParser.query();
+                //Console.WriteLine($"Tree: {context.ToStringTree()}");
             }
             catch (Exception ex)
             {
@@ -59,11 +46,24 @@ namespace MathSample.Helpers
         }
     }
 
+    public class SqlParser : SqlParserBase
+    {
+        private CommonTokenStream _commonTokenStream;
+
+        public SqlParser(List<IToken> tokens)
+        {
+            _commonTokenStream = new CommonTokenStream();
+            _commonTokenStream.Tokens = tokens;
+            _sqlParser = new SqlGrammarParser(_commonTokenStream);
+            //speakParser.RemoveErrorListeners();
+            _sqlParser.AddErrorListener(_sqlErrorListener);
+        }
+    }
+
 
     public class SqlParserStr : SqlParserBase
     {
             private SqlGrammarLexer _sqlLexer;
-            private SqlGrammarParser _sqlParser;
 
             public SqlParserStr(string sqlQuery)
             {
@@ -73,12 +73,6 @@ namespace MathSample.Helpers
                 _sqlParser = new SqlGrammarParser(commonTokenStream);
                 //sqlParser.RemoveErrorListeners();
                 _sqlParser.AddErrorListener(_sqlErrorListener);
-            }
-
-            public bool ParseQuery()
-            {
-                _ = _sqlParser.query();
-                return _sqlErrorListener.IsValid;
             }
     }
 }

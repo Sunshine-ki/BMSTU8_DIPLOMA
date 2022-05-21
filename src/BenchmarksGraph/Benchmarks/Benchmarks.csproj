@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    <PackageReference Include="LiveCharts" Version="0.9.7" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\..\..\..\antlr4cs\runtime\CSharp\Antlr4.Runtime\bin\Debug\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="MathSample">
+      <HintPath>..\..\front\SqlFront\bin\Debug\MathSample.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

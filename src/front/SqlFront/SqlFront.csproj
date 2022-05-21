@@ -76,12 +76,6 @@
     <Compile Include="Helpers\SqlParser.cs" />
     <Compile Include="MathContext.cs" />
     <Compile Include="Models\AntlrErrorModel.cs" />
-    <Compile Include="obj\Debug\SqlGrammarBaseListener.cs" />
-    <Compile Include="obj\Debug\SqlGrammarBaseVisitor.cs" />
-    <Compile Include="obj\Debug\SqlGrammarLexer.cs" />
-    <Compile Include="obj\Debug\SqlGrammarListener.cs" />
-    <Compile Include="obj\Debug\SqlGrammarParser.cs" />
-    <Compile Include="obj\Debug\SqlGrammarVisitor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlGrammar.g4.lexer.cs">
