@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace MathSample.StrContext
+namespace MathSample.Enums
 {
     public enum StringType
     {

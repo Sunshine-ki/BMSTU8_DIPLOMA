@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\TokenType.cs" />
+    <Compile Include="Enums\JoinType.cs" />
     <Compile Include="Models\MyToken.cs" />
     <Compile Include="StrContext\CharactersContext.cs" />
     <Compile Include="StrContext\InputValuesContext.cs" />

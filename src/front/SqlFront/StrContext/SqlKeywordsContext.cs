@@ -1,4 +1,5 @@
-﻿using MathSample.Helpers;
+﻿using MathSample.Enums;
+using MathSample.Helpers;
 using NodeEditor;
 using System;
 using System.Collections.Generic;

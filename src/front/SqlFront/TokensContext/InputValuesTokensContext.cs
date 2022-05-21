@@ -71,7 +71,7 @@ namespace MathSample.TokensContext
         public void String(string InputString, StringType type = StringType.Character)
         {
             var typeResult = string.Empty;
-            int tokenType = 0;
+            int tokenType = SqlGrammarLexer.CHARACTER_STRING;
 
             switch (type)
             {
@@ -144,20 +144,6 @@ namespace MathSample.TokensContext
             appendToResult(number.ToString(CultureInfo.InvariantCulture), SqlGrammarLexer.FLOAT);
             appendToResult(Tokens.POW, SqlGrammarLexer.POW);
             appendToResult(pow.ToString(CultureInfo.InvariantCulture), SqlGrammarLexer.FLOAT);
-        }
-
-        [Node("Limit", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
-        public void Limit(int number)
-        {
-            appendToResult(Tokens.LIMIT, SqlGrammarLexer.LIMIT);
-            appendToResult(number.ToString(), SqlGrammarLexer.INT);
-        }
-
-        [Node("Offset", "Input", "Basic", width: Constants.WidthOnlyOneWord)]
-        public void Offset(int number)
-        {
-            appendToResult(Tokens.OFFSET, SqlGrammarLexer.OFFSET);
-            appendToResult(number.ToString(), SqlGrammarLexer.INT);
         }
 
         [Node("Direction", "Input", "Basic", width: Constants.WidthOnlyOneWord)]

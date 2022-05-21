@@ -36,6 +36,14 @@ namespace MathSample.Helpers
         public const string EXCEPT = "EXCEPT";
         public const string LIMIT = "LIMIT";
         public const string OFFSET = "OFFSET";
-
+        public const string JOIN = "JOIN";
+        public const string CROSS = "CROSS";
+        public const string NATURAL = "NATURAL";
+        public const string INNER = "INNER";
+        public const string LEFT = "LEFT";
+        public const string RIGHT = "RIGHT";
+        public const string FULL = "FULL";
+        public const string OUTER = "OUTER";
+        public const string ON = "ON";
     }
 }
