@@ -54,10 +54,20 @@ namespace MathSample.TokensContext
             onResultInvoke(tokens);
 
             var parser = new SqlParser(tokens);
+
             var isValid = parser.ParseQuery();
             parser.TryOutputErrorMessages();
 
-            string msg = "Success";
+            var query = parser.Query;
+            Console.WriteLine($"query is null: {query is null}");
+            string stringTree = string.Empty;
+            if (query != null)
+            {
+                stringTree = query.ToStringTree();
+                Console.WriteLine(stringTree);
+            }
+
+            string msg = $"Success\n{stringTree}";
             if (!isValid)
             {
                 var errMsg = parser.GetFirstError();

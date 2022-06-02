@@ -5,6 +5,7 @@ using MathSample.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static MathSample.SqlGrammarParser;
 
 namespace MathSample.Helpers
 {
@@ -12,6 +13,7 @@ namespace MathSample.Helpers
     {
         protected SqlErrorListener _sqlErrorListener = SqlErrorListener.CreateListener();
         protected SqlGrammarParser _sqlParser;
+        public QueryContext Query;
 
         public virtual AntlrErrorModel GetFirstError()
         {
@@ -34,6 +36,7 @@ namespace MathSample.Helpers
             try
             {
                 var context = _sqlParser.query();
+                Query = context;
                 //Console.WriteLine($"Tree: {context.ToStringTree()}");
             }
             catch (Exception ex)
@@ -48,12 +51,11 @@ namespace MathSample.Helpers
 
     public class SqlParser : SqlParserBase
     {
-        private CommonTokenStream _commonTokenStream;
+        private CustomTokenStream _commonTokenStream;
 
         public SqlParser(List<IToken> tokens)
         {
-            _commonTokenStream = new CommonTokenStream();
-            _commonTokenStream.Tokens = tokens;
+            _commonTokenStream = new CustomTokenStream(tokens);
             _sqlParser = new SqlGrammarParser(_commonTokenStream);
             //speakParser.RemoveErrorListeners();
             _sqlParser.AddErrorListener(_sqlErrorListener);

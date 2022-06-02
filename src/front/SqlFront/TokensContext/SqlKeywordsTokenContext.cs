@@ -95,8 +95,11 @@ namespace MathSample.TokensContext
         {
             appendToResult(Tokens.ORDER, SqlGrammarLexer.ORDER);
             appendToResult(Tokens.BY, SqlGrammarLexer.BY);
-            appendToResult(columnName, SqlGrammarLexer.NAME);
-            appendToResult(direction.GetDescription(), direction.GetTokenType());
+            if (!string.IsNullOrEmpty(columnName))
+            {
+                appendToResult(columnName, SqlGrammarLexer.NAME);
+                appendToResult(direction.GetDescription(), direction.GetTokenType());
+            }
         }
 
         [Node("Limit", "Keywords", "Basic", width: Constants.WidthOnlyOneWord)]

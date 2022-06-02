@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -12,38 +13,6 @@ using MoreLinq;
 
 namespace Benchmarks
 {
-    [MemoryDiagnoser]
-    public class BenchmarkerMethodsCompare
-    {
-        int NumberOfItems = 100_000;
-
-        [Benchmark]
-        public void ToUpperTest()
-        {
-            string log = "ЗаПиСыВаЙтЕсЬ нА нОкОтОчКи!!11111";
-            string search = "коточ";
-            var srch = search.ToUpper();
-
-            for (int i = 0; i < NumberOfItems; i++)
-            {
-                var value = log.ToUpper().Contains(srch);
-            }
-        }
-
-        [Benchmark]
-        public void IndexOf()
-        {
-            string log = "ЗаПиСыВаЙтЕсЬ нА нОкОтОчКи!!11111";
-            string search = "коточ";
-            var srch = search.ToUpper();
-
-            for (int i = 0; i < NumberOfItems; i++)
-            {
-                var value = log.ToUpper().Contains(srch);
-            }
-        }
-    }
-
     public partial class MainWindow : Window
     {
         public SeriesCollection SeriesCollect { get; set; }
@@ -54,44 +23,29 @@ namespace Benchmarks
         {
             InitializeComponent();
 
-            LevelLabels = new[] { "Очень низкая", "Низкая", "Номинальная", "Высокая", "Очень высокая" };
+            LevelLabels = new[] { "Очень простой", "Простой", "Нормальный", "Сложный"};
             YFormatter = value => value.ToString();
 
             SeriesCollect = getDefaultGraph();
             fillGraph(SeriesCollect);
-            init();
 
             DataContext = this;
         }
 
-        private void init()
-        {
-            IQuery query = new VeryEasyQuery();
-
-            var sqlStrParser = new SqlParserStr(query.GetStr());
-            var strResult = sqlStrParser.ParseQuery();
-            log($"strResult = {strResult}");
-
-            var sqlTokenParser = new SqlParser(query.GetTokens());
-            var tokensResult = sqlTokenParser.ParseQuery();
-            log($"tokensResult = {tokensResult}");
-
-
-            log("Success");
-        }
-
         private void fillGraph(SeriesCollection time)
         {
-            for (int i = 0; i < 5; i++)
+            // Str[62.69, 320.49, 1671.47, 2099]
+            // Tokens[41.33, 208.78, 534.41, 642.57]
+
+            foreach(double elem in new List<double>() { 62.69, 320.49, 1671.47, 2099 })
             {
-                time[0].Values.Add(1.0);
+                time[0].Values.Add(elem);
             }
 
-            for (int i = 0; i < 5; i++)
+            foreach (double elem in new List<double>() { 41.33, 208.78, 534.41, 642.57 })
             {
-                time[1].Values.Add((double)i);
+                time[1].Values.Add(elem);
             }
-
         }
 
         private SeriesCollection getDefaultGraph()

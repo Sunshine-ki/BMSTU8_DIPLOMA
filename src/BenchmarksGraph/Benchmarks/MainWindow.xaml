@@ -16,10 +16,10 @@
 
         <lvc:CartesianChart Series="{Binding SeriesCollect}" Grid.Row="0">
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Время" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                <lvc:Axis Title="Время, мс" Foreground="Black" FontSize="18" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Сложность запроса" Labels="{Binding LevelLabels}"></lvc:Axis>
+                <lvc:Axis Title="Сложность запроса" Foreground="Black" FontSize="18" Labels="{Binding LevelLabels}"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
  
