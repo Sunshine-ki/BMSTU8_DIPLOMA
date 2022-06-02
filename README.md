@@ -6,6 +6,10 @@
 
 ## Консультант: Ступников Андрей Алексеевич (Ведет Компиляторы в Маге ✨)
 
+### [РПЗ](https://github.com/Sunshine-ki/BMSTU8_DIPLOMA/blob/main/docs/%D0%A0%D0%9F%D0%97.pdf)
+
+### [Презентация](https://github.com/Sunshine-ki/BMSTU8_DIPLOMA/blob/main/docs/%D0%9F%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F.pdf)
+
 ### [Фронт](https://github.com/komorra/NodeEditorWinforms)
 
 ### [Fork ANTLR](https://github.com/Sunshine-ki/antlr4cs)
@@ -13,10 +17,6 @@
 ### [Разработанная грамматика](https://github.com/Sunshine-ki/BMSTU8_DIPLOMA/blob/main/src/front/SqlFront/SqlGrammar.g4) 
 
 ### [Спецификация](http://sql602.sourceforge.net/helpdir-en/html/HE_SQL2_SPECIFIKACEDOTAZU.htm) 
-
-### [РПЗ](https://github.com/Sunshine-ki/BMSTU8_DIPLOMA/blob/main/docs/%D0%A0%D0%9F%D0%97.pdf)
-
-### [Презентация](https://github.com/Sunshine-ki/BMSTU8_DIPLOMA/blob/main/docs/%D0%9F%D1%80%D0%B5%D0%B7%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F.pdf)
 
 # Примеры деревьев
 
